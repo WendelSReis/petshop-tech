@@ -26,4 +26,10 @@ public class ProdutoController {
         var produto = service.findById(id);
         return ResponseEntity.ok(produto);
     }
+
+    @PostMapping
+    public ResponseEntity<Produto> save(@RequestBody Produto produto) {
+        produto = service.save(produto);
+        return ResponseEntity.status(HttpStatusCode.valueOf(201)).body(produto);
+    }
 }
