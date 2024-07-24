@@ -22,7 +22,7 @@ public class ProdutoController {
         return ResponseEntity.ok(produtos);
     }
     @GetMapping("/id")
-    public ResponseEntity<Optional<Produto>> findById(@PathVariable UUID id) {
+    public ResponseEntity<Produto> findById(@PathVariable UUID id) {
         var produto = service.findById(id);
         return ResponseEntity.ok(produto);
     }
@@ -31,5 +31,16 @@ public class ProdutoController {
     public ResponseEntity<Produto> save(@RequestBody Produto produto) {
         produto = service.save(produto);
         return ResponseEntity.status(HttpStatusCode.valueOf(201)).body(produto);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Produto> update (@PathVariable UUID id, @RequestBody Produto produto) {
+        var produtoId = service.update(id, produto);
+        return ResponseEntity.ok(produto);
+    }
+    @DeleteMapping
+    public ResponseEntity<Void> delete (@PathVariable UUID id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
